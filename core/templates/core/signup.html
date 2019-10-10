@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="privacy">
+        <div class="container">
+            <h3 class="tittle-w3l">Login
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+            {{ form.as_p }} 
+        </div>
+    </div>
+    <button class='btn btn-primary' type='submit'>Signup</button>
+</form>
+{% endblock %}

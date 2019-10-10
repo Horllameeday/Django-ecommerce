@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+	<title>Harbyb Online Shop</title>
+	<!--/tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="For your general accessories" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!--//tags -->
+	<link href="{% static 'core/css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+	<link href="{% static 'core/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+	<link href="{% static 'core/css/font-awesome.css' %}" rel="stylesheet">
+	<!--pop-up-box-->
+	<link href="{% static 'core/css/popuo-box.css' %}" rel="stylesheet" type="text/css" media="all" />
+	<!--//pop-up-box-->
+	
+	<!-- fonts -->
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+</head>
+
+<body>
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+		{% endfor %}
+	{% endif %}
+	<!-- navigation -->
+	<div class="ban-top">
+		<div class="container">
+			<div class="top_nav_left">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+							    aria-expanded="false">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav menu__list">
+								<li class="active">
+									<a class="nav-stylehead" href="index.html">Home
+										<span class="sr-only">(current)</span>
+									</a>
+								</li>
+								<li class="">
+									<a class="nav-stylehead" href="about.html">About Us</a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu multi-column columns-3">
+										<div class="agile_inner_drop_nav_info">
+											<div class="col-sm-6 multi-gd-img">
+												<ul class="multi-column-dropdown">
+													<li>
+														<a href="footwears.html">Footwears</a>
+													</li>
+													<li>
+														<a href="accessories.html">Accessories</a>
+													</li>
+													<li>
+														<a href="shirts.html">Shirts</a>
+													</li>
+													<li>
+														<a href="trousers.html">Trousers</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</ul>
+								</li>
+								<li class="">
+									<a class="nav-stylehead" href="contact.html">Contact</a>
+								</li>
+								{% if request.user.is_authenticated %}
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:cart' %}">Cart</a>
+								</li>
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:logout' %}?next={% url 'core:index' %}">Logout</a>
+								</li>
+								{% else %}
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:login' %}">Login</a>
+								</li>
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:signup' %}">Signup</a>
+								</li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<!-- //navigation -->
+
+	<!-- Products -->
+	<div class="ads-grid">
+		<div class="container">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l">Our Products
+				<span class="heading-style">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</h3>
+			<!-- //tittle heading -->
+			<!-- product -->
+			<div class="agileinfo-ads-display col-md-9">
+				<div class="wrapper">
+					<!-- footwear section -->
+					{% for every in category_list %}
+					<div class="product-sec1">
+						<h3 class="heading-tittle"><a href="#">{{ every.title }}</a></h3>
+						{% for item in item_list %}
+						{% if item.category == every %}
+						<div class="col-xs-4 product-men">
+							<div class="men-pro-item simpleCart_shelfItem">
+								<div class="men-thumb-item">
+									<img src="{{ item.image.url }}" alt="">
+									<div class="men-cart-pro">
+										<i></i><div class="inner-men-cart-pro">
+											<a href="{{ item.get_absolute_url }}" class="link-product-add-cart">Quick View</a>
+										</div>
+									</div>
+								</div>
+								<div class="item-info-product ">
+									<h4>
+										<a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+									</h4>
+									<div class="info-product-price">
+										<span class="item_price">{{ item.price }}</span>
+									</div>
+									{% if request.user.is_authenticated %}
+									<div>
+										<a href="{{ item.get_add_to_cart_url }}" class="btn btn-success">
+											Add to Cart
+										</a>
+									</div>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						{% endif %}
+						{% endfor %}
+						<div class="clearfix"></div>
+					</div>
+					{% endfor %}
+					<!-- //footwear section -->
+				</div>
+			</div>
+			<!-- //product -->
+		</div>
+	</div>
+	<!-- //top products -->
+	<!-- footer -->
+	<footer>
+		<div class="container">
+
+			<!-- footer section -->
+			<div class="footer-info w3-agileits-info">
+				<!-- quick links -->
+				<div class="col-sm-5 address-right">
+					<div class="col-xs-6 footer-grids">
+						<h3>Quick Links</h3>
+						<ul>
+							<li>
+								<a href="about.html">About Us</a>
+							</li>
+							<li>
+								<a href="contact.html">Contact Us</a>
+							</li>
+							<li>
+								<a href="help.html">Help</a>
+							</li>
+							<li>
+								<a href="terms.html">Terms of use</a>
+							</li>
+							<li>
+								<a href="privacy.html">Privacy Policy</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-xs-6 footer-grids">
+						<h3>Get in Touch</h3>
+						<ul>
+							<li>
+								<i class="fa fa-map-marker"></i> 123 Sebastian, USA.</li>
+							<li>
+								<i class="fa fa-mobile"></i> 333 222 3333 </li>
+							<li>
+								<i class="fa fa-phone"></i> +222 11 4444 </li>
+							<li>
+								<i class="fa fa-envelope-o"></i>
+								<a href="mailto:example@mail.com"> mail@example.com</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- //quick links -->
+				<!-- social icons -->
+				<div class="col-sm-2 footer-grids  w3l-socialmk">
+					<h3>Follow Us on</h3>
+					<div class="social">
+						<ul>
+							<li>
+								<a class="icon fb" href="#">
+									<i class="fa fa-facebook"></i>
+								</a>
+							</li>
+							<li>
+								<a class="icon tw" href="#">
+									<i class="fa fa-twitter"></i>
+								</a>
+							</li>
+							<li>
+								<a class="icon gp" href="#">
+									<i class="fa fa-google-plus"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- //social icons -->
+				<div class="clearfix"></div>
+			</div>
+			<!-- //footer section -->
+		</div>
+	</footer>
+	<!-- //footer -->
+	<!-- copyright -->
+	<div class="copy-right">
+		<div class="container">
+			<p>© 2019. All rights reserved | Design by
+				<a href="mailto:abdullah_busari@yahoo.com"> Busari Abdullah</a>
+			</p>
+		</div>
+	</div>
+	<!-- //copyright -->
+
+	<!-- js-files -->
+	<!-- jquery -->
+	<script src="{% static 'core/js/jquery-2.1.4.min.js' %}"></script>
+	<!-- //jquery -->
+
+	{% comment %}<!-- smoothscroll -->
+	<script src="{% static 'core/js/SmoothScroll.min.js' %}"></script>
+	<!-- //smoothscroll -->
+
+	<!-- start-smooth-scrolling -->
+	<script src="{% static 'core/js/move-top.js' %}"></script>
+	<script src="{% static 'core/js/easing.js' %}"></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- //end-smooth-scrolling -->
+	{% endcomment %}
+
+	<!-- smooth-scrolling-of-move-up -->
+	<script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<!-- //smooth-scrolling-of-move-up -->
+
+	<!-- for bootstrap working -->
+	<script src="{% static 'core/js/bootstrap.js' %}"></script>
+	<!-- //for bootstrap working -->
+	<!-- //js-files -->
+
+
+</body>
+
+</html>

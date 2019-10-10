@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="privacy">
+        <div class="container">
+            <h3 class="tittle-w3l">Checkout
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        </div>
+        <div>
+            <label for='address'>Address:</label>
+            {{ form.address }}
+        </div>
+        <br /><br />
+        <div>
+            <label for='phone_number'>Phone Number:</label>
+            {{ form.phone_number }}  
+        </div>
+        <br /><br />
+    </div>
+    <button class='btn btn-primary' type='submit'>Checkout</button>
+</form>
+{% endblock %}

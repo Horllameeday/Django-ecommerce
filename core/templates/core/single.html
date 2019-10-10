@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Single Page -->
+	<div class="banner-bootom-w3-agileits">
+		<div class="container">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l">Single Page
+				<span class="heading-style">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</h3>
+			<!-- //tittle heading -->
+			<div class="col-md-7 single-right-left simpleCart_shelfItem">
+				<img src="{{ item.image.url }}" class="img-responsive" alt="">
+				<h3>{{ item.name }}</h3>
+				<p>
+					<span class="item_price">N{{ item.price }}</span>
+				</p>
+				<div class="single-infoagile">
+					<p>{{ item.description }}</p>
+				</div>
+				{% if request.user.is_authenticated %}
+				<div>
+					<a href="{{ object.get_add_to_cart_url }}" class="btn btn-success">
+						Add to Cart
+					</a>
+				</div>
+				{% endif %}
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<!-- //Single Page -->
+{% endblock %}

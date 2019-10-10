@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Item Price</th>
+        </tr>
+    </thead>
+    {% for order_item in object.items.all %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ order_item.item.name }}</td>
+        <td>{{ order_item.item.price }}</td>
+        <td>
+            <a href="{% url 'core:remove-single-item-from-cart' order_item.item.pk %}"><i class="glyphicon glyphicon-minus mr-2"></i></a>
+            {{ order_item.quantity }}
+            <a href="{% url 'core:add-to-cart' order_item.item.pk %}"><i class="glyphicon glyphicon-plus ml-2"></i></a>
+        <td>{{ order_item.get_total_item_price }}</td>
+        <td>
+            <a style='color: red' href="{% url 'core:remove-from-cart' order_item.item.pk %}">
+                <i class="fa fa-trash-o"></i>
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">Your cart is Empty</td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <a class='btn btn-primary float-right' href="{% url 'core:index' %}">Continue Shopping</a>
+        </td>
+    </tr>
+    {% endfor %}
+    {% if object.get_total %}
+    <tr>
+        <td colspan="4">Order Total</td>
+        <td>N{{ object.get_total }}</td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <a class='btn btn-warning float-right ml-2' href="{% url 'core:option' %}">Proceed to Checkout</a>
+            <a class='btn btn-primary float-right' href="{% url 'core:index' %}">Continue Shopping</a>
+        </td>
+    </tr>
+    {% endif %}
+</table>
+{% endblock %}
