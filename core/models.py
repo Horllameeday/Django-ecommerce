@@ -5,6 +5,15 @@ from django.shortcuts import reverse
 
 # Create your models here.
 
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    api_id = models.CharField(max_length=50)
+    amount = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
+
 class Category(models.Model):
     title = models.CharField(max_length=100)
 
@@ -17,18 +26,19 @@ class Item(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.FloatField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("core:detail", kwargs={'pk': self.pk})
+        return reverse("core:detail", kwargs={'slug': self.slug})
 
     def get_add_to_cart_url(self):
-        return reverse("core:add-to-cart", kwargs={'pk': self.pk})
+        return reverse("core:add-to-cart", kwargs={'slug': self.slug})
 
     def get_remove_from_cart_url(self):
-        return reverse("core:remove-from-cart", kwargs={'pk': self.pk})
+        return reverse("core:remove-from-cart", kwargs={'slug': self.slug})
     
 
 class OrderItem(models.Model):
@@ -50,8 +60,10 @@ class Order(models.Model):
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
     order_address = models.ForeignKey("Address", on_delete=models.SET_NULL, blank=True, null=True)
+    ref_code = models.CharField(max_length=20, blank=True, null=True)
+    payment = models.ForeignKey('Payment', on_delete=models.SET_NULL, blank=True, null=True)
+    being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)
-    ref_code = models.CharField(max_length=20)
 
     def __str__(self):
         return self.user.username

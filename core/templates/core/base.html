@@ -54,12 +54,12 @@
 						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav menu__list">
 								<li class="active">
-									<a class="nav-stylehead" href="index.html">Home
+									<a class="nav-stylehead" href="{% url 'core:index' %}">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
 								<li class="">
-									<a class="nav-stylehead" href="about.html">About Us</a>
+									<a class="nav-stylehead" href="{% url 'core:about' %}">About Us</a>
 								</li>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories
@@ -87,8 +87,23 @@
 									</ul>
 								</li>
 								<li class="">
-									<a class="nav-stylehead" href="contact.html">Contact</a>
+									<a class="nav-stylehead" href="{% url 'core:contact' %}">Contact</a>
 								</li>
+								{% if request.user.is_authenticated %}
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:cart' %}">Cart</a>
+								</li>
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:logout' %}?next={% url 'core:index' %}">Logout</a>
+								</li>
+								{% else %}
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:login' %}">Login</a>
+								</li>
+								<li class="">
+										<a class="nav-stylehead" href="{% url 'core:signup' %}">Signup</a>
+								</li>
+								{% endif %}
 							</ul>
 						</div>
 					</div>
