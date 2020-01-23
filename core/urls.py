@@ -5,9 +5,10 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('about', views.IndexView.as_view(), name='about'),
-    path('contact', views.IndexView.as_view(), name='contact'),
+    path('about', views.about, name='about'),
+    path('contact', views.contact, name='contact'),
     path('detail/<slug>', views.ItemDetailView.as_view(), name='detail'),
+    path('<int:pk>', views.category_view, name='category'),
     path('cart/', views.CartView.as_view(), name='cart'),  
     path('add-to-cart/<slug>', views.add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>', views.remove_from_cart, name='remove-from-cart'),

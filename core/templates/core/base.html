@@ -61,7 +61,7 @@
 								<li class="">
 									<a class="nav-stylehead" href="{% url 'core:about' %}">About Us</a>
 								</li>
-								<li class="dropdown">
+								<!--<li class="dropdown">
 									<a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories
 										<span class="caret"></span>
 									</a>
@@ -69,6 +69,11 @@
 										<div class="agile_inner_drop_nav_info">
 											<div class="col-sm-6 multi-gd-img">
 												<ul class="multi-column-dropdown">
+													{% for all in Category.objects.all %}
+													<li>
+														<a href="#">{{ all.title }}</a>
+													</li>
+													{% endfor %}
 													<li>
 														<a href="footwears.html">Footwears</a>
 													</li>
@@ -85,7 +90,7 @@
 											</div>
 										</div>
 									</ul>
-								</li>
+								</li>-->
 								<li class="">
 									<a class="nav-stylehead" href="{% url 'core:contact' %}">Contact</a>
 								</li>
@@ -113,21 +118,6 @@
 	</div>
 	<!-- //navigation -->
 	
-	<!-- page -->
-	<div class="services-breadcrumb">
-		<div class="agile_inner_breadcrumb">
-			<div class="container">
-				<ul class="w3_short">
-					<li>
-						<a href="index.html">Home</a>
-						<i>|</i>
-					</li>
-					<li>Single Page</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- //page -->
     {% block content %}
     
     {% endblock %}

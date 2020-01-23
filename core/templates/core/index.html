@@ -61,31 +61,6 @@
 								<li class="">
 									<a class="nav-stylehead" href="{% url 'core:about' %}">About Us</a>
 								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu multi-column columns-3">
-										<div class="agile_inner_drop_nav_info">
-											<div class="col-sm-6 multi-gd-img">
-												<ul class="multi-column-dropdown">
-													<li>
-														<a href="footwears.html">Footwears</a>
-													</li>
-													<li>
-														<a href="accessories.html">Accessories</a>
-													</li>
-													<li>
-														<a href="shirts.html">Shirts</a>
-													</li>
-													<li>
-														<a href="trousers.html">Trousers</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</ul>
-								</li>
 								<li class="">
 									<a class="nav-stylehead" href="{% url 'core:contact' %}">Contact</a>
 								</li>
@@ -131,7 +106,7 @@
 					<!-- footwear section -->
 					{% for every in category_list %}
 					<div class="product-sec1">
-						<h3 class="heading-tittle"><a href="#">{{ every.title }}</a></h3>
+						<h3 class="heading-tittle"><a href="{% url 'core:category' every.pk %}">{{ every.title }}</a></h3>
 						{% for item in item_list %}
 						{% if item.category == every %}
 						<div class="col-xs-4 product-men">

@@ -40,6 +40,20 @@ class ItemDetailView(DetailView):
     model = Item
     template_name = "core/single.html"
 
+def category_view(request, pk):
+    category = Category.objects.get(pk=pk)
+    items = Item.objects.filter(category=category.pk)
+    context = {
+        'category' : category,
+        'items' : items
+    }
+    return render(request, 'core/category.html', context)
+
+def about(request):
+    return render(request, 'core/about.html')
+
+def contact(request):
+    return render(request, 'core/contact.html')
 
 class OptionView(View):
     def get(self, *args, **kwargs):
@@ -287,6 +301,7 @@ def remove_from_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
             order.items.remove(order_item)
+            order_item.delete()
             order.save()
             messages.info(request, "This item was removed from your cart")
             return redirect("core:cart")
@@ -310,9 +325,10 @@ def remove_single_item_from_cart(request, slug):
                 order_item.save()
             else:
                 order.items.remove(order_item)
+                order_item.delete()
                 order.save()
             messages.info(request, "This item was quantity was updated")
-            return redirect("core:detail", slug=slug)
+            return redirect("core:cart")
         else:
             messages.info(request, "This item was not in your cart")
             return redirect("core:detail", slug=slug)

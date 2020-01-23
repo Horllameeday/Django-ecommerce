@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<!-- page -->
+<div class="services-breadcrumb">
+    <div class="agile_inner_breadcrumb">
+        <div class="container">
+            <ul class="w3_short">
+                <li>
+                    <a href="index.html">Home</a>
+                    <i>|</i>
+                </li>
+                <li>{{ category.title }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- //page -->
+<!-- top Products -->
+<div class="ads-grid">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">{{ category.title }}
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <!-- product -->
+        <div class="agileinfo-ads-display col-md-9 w3l-rightpro">
+            <div class="wrapper">
+                <!-- first section -->
+                <div class="product-sec1">
+                    {% for item in items %}
+					
+                    <div class="col-xs-4 product-men">
+                        <div class="men-pro-item simpleCart_shelfItem">
+                            <div class="men-thumb-item">
+                                <img src="{{ item.image.url }}" alt="">
+                                <div class="men-cart-pro">
+                                    <i></i><div class="inner-men-cart-pro">
+                                        <a href="{{ item.get_absolute_url }}" class="link-product-add-cart">Quick View</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-info-product ">
+                                <h4>
+                                    <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+                                </h4>
+                                <div class="info-product-price">
+                                    <span class="item_price">{{ item.price }}</span>
+                                </div>
+                                {% if request.user.is_authenticated %}
+                                <div>
+                                    <a href="{{ item.get_add_to_cart_url }}" class="btn btn-success">
+                                        Add to Cart
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="clearfix"></div>
+                </div>
+                <!-- //first section -->
+            </div>
+        </div>
+        <!-- //product -->
+    </div>
+</div>
+{% endblock %}
