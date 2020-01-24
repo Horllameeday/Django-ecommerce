@@ -106,7 +106,7 @@
 					<!-- footwear section -->
 					{% for every in category_list %}
 					<div class="product-sec1">
-						<h3 class="heading-tittle"><a href="{% url 'core:category' every.pk %}">{{ every.title }}</a></h3>
+						<h3 class="heading-tittle"><a href="{% url 'core:category' every.slug %}">{{ every.title }}</a></h3>
 						{% for item in item_list %}
 						{% if item.category == every %}
 						<div class="col-xs-4 product-men" style="margin-bottom: 50px;">

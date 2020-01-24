@@ -8,7 +8,11 @@
 			<div class="container">
 				<ul class="w3_short">
 					<li>
-						<a href="index.html">Home</a>
+						<a href="{% url 'core:index' %}">Home</a>
+						<i>|</i>
+					</li>
+					<li>
+						<a href="{% url 'core:category' item.category.slug %}">{{item.category}}</a>
 						<i>|</i>
 					</li>
 					<li>{{ item.name }}</li>
@@ -22,11 +26,7 @@
 	<div class="banner-bootom-w3-agileits">
 		<div class="container">
 			<!-- tittle heading -->
-<<<<<<< HEAD
-			<h3 class="tittle-w3l">{{ item.name }}
-=======
 			<h3 class="tittle-w3l"> {{item.name}}
->>>>>>> First changes
 				<span class="heading-style">
 					<i></i>
 					<i></i>

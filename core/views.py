@@ -40,9 +40,9 @@ class ItemDetailView(DetailView):
     model = Item
     template_name = "core/single.html"
 
-def category_view(request, pk):
-    category = Category.objects.get(pk=pk)
-    items = Item.objects.filter(category=category.pk)
+def category_view(request, slug):
+    category = Category.objects.get(slug=slug)
+    items = Item.objects.filter(category=category)
     context = {
         'category' : category,
         'items' : items
@@ -53,7 +53,23 @@ def about(request):
     return render(request, 'core/about.html')
 
 def contact(request):
-    return render(request, 'core/contact.html')
+    form = ContactForm()
+
+    if request.method == "POST":
+        form = ContactForm(data=request.POST)
+		
+        if form.is_valid():
+            new_message = form.save(commit=False)
+            new_message.save()
+            messages.success(request, 'Your Message have been successfully forwarded to Us. We will make sure to reply you as soon as possible. Thanks.')
+            return redirect("core:contact")
+
+    else:
+        form = ContactForm()
+    
+    context = {'form':form}
+
+    return render(request, 'core/contact.html', context)
 
 class OptionView(View):
     def get(self, *args, **kwargs):
@@ -282,7 +298,7 @@ def add_to_cart(request, slug):
             return redirect("core:cart")
         else:
             order.items.add(order_item)
-            messages.info(request, "This item was added to your cart")
+            messages.success(request, "This item was added to your cart")
             return redirect("core:cart")
     else:
         ordered_date = timezone.now()
@@ -329,10 +345,7 @@ def remove_single_item_from_cart(request, slug):
                 order.save()
             messages.info(request, "This item was quantity was updated")
             return redirect("core:cart")
-<<<<<<< HEAD
-=======
             # return redirect("core:detail", slug=slug)
->>>>>>> First changes
         else:
             messages.info(request, "This item was not in your cart")
             return redirect("core:detail", slug=slug)
