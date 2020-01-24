@@ -23,8 +23,11 @@ class OrderAdmin(admin.ModelAdmin):
         'ref_code'
     ]
 
+class ItemAdmin(admin.ModelAdmin):
+    prepopulated_fields	=	{'slug':	('name',)}
+
 admin.site.register(Category)
-admin.site.register(Item)
+admin.site.register(Item, ItemAdmin)
 admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)
 #admin.site.register(Payment)

@@ -99,9 +99,9 @@
 					<i></i>
 				</span>
 			</h3>
-			<!-- //tittle heading -->
+			<!-- //title heading -->
 			<!-- product -->
-			<div class="agileinfo-ads-display col-md-9">
+			<div class="agileinfo-ads-display col-md-12">
 				<div class="wrapper">
 					<!-- footwear section -->
 					{% for every in category_list %}
@@ -109,17 +109,17 @@
 						<h3 class="heading-tittle"><a href="{% url 'core:category' every.pk %}">{{ every.title }}</a></h3>
 						{% for item in item_list %}
 						{% if item.category == every %}
-						<div class="col-xs-4 product-men">
+						<div class="col-xs-4 product-men" style="margin-bottom: 50px;">
 							<div class="men-pro-item simpleCart_shelfItem">
 								<div class="men-thumb-item">
-									<img src="{{ item.image.url }}" alt="">
+									<img src="{{ item.image.url }}" alt="" class='img-fluid'>
 									<div class="men-cart-pro">
 										<i></i><div class="inner-men-cart-pro">
 											<a href="{{ item.get_absolute_url }}" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 								</div>
-								<div class="item-info-product ">
+								<div class="item-info-product">
 									<h4>
 										<a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
 									</h4>
@@ -155,7 +155,7 @@
 			<!-- footer section -->
 			<div class="footer-info w3-agileits-info">
 				<!-- quick links -->
-				<div class="col-sm-5 address-right">
+				<div class="col-sm-10 address-right">
 					<div class="col-xs-6 footer-grids">
 						<h3>Quick Links</h3>
 						<ul>

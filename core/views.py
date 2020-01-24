@@ -329,6 +329,10 @@ def remove_single_item_from_cart(request, slug):
                 order.save()
             messages.info(request, "This item was quantity was updated")
             return redirect("core:cart")
+<<<<<<< HEAD
+=======
+            # return redirect("core:detail", slug=slug)
+>>>>>>> First changes
         else:
             messages.info(request, "This item was not in your cart")
             return redirect("core:detail", slug=slug)

@@ -600,8 +600,8 @@ button.w3view-cart {
 
 /*-- effect on products --*/
 .men-cart-pro {
-    bottom: 0;
-    left: 0;
+    bottom: 35%;
+    left: 5%;
     margin: auto;
     opacity: 0;
     overflow: hidden;
@@ -666,7 +666,7 @@ button.w3view-cart {
     display: inline-block;
 }
 .inner-men-cart-pro ul li a {
-    color: #fff;
+    color: red;
     transition: all 0.5s ease-out 0s;
     display: block;
     width: 40px;
@@ -898,6 +898,11 @@ input.checked {
     font-weight: normal;
     font-size: 14px;
     margin-left: 8px;
+}
+
+.agileinfo-ads-display img{
+    height: 225px;
+    width: 225px;
 }
 /*-- //customer --*/
 /*-- special deals --*/
