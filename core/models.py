@@ -16,6 +16,7 @@ class Payment(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
+    slug = models.SlugField(null=True, unique=True, max_length=30)
 
     def __str__(self):
         return self.title
@@ -81,3 +82,14 @@ class Address(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=30)
+    subject = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254)
+    message = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name

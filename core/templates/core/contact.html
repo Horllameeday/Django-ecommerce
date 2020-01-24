@@ -8,10 +8,10 @@
 			<div class="container">
 				<ul class="w3_short">
 					<li>
-						<a href="index.html">Home</a>
+						<a href="{% url 'core:index' %}">Home</a>
 						<i>|</i>
 					</li>
-					<li>About</li>
+					<li>Contact</li>
 				</ul>
 			</div>
 		</div>
@@ -33,18 +33,19 @@
 			<div class="contact agileits">
 				<div class="contact-agileinfo">
 					<div class="contact-form wthree">
-						<form action="#" method="post">
+						<form action="{% url 'core:contact' %}" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
 							<div class="">
-								<input type="text" name="name" placeholder="Name" required="">
+								{{form.name}}
 							</div>
 							<div class="">
-								<input class="text" type="text" name="subject" placeholder="Subject" required="">
+								{{form.subject}}
 							</div>
 							<div class="">
-								<input class="email" type="email" name="email" placeholder="Email" required="">
+								{{form.email}}
 							</div>
 							<div class="">
-								<textarea placeholder="Message" name="message" required=""></textarea>
+								{{form.message}}
 							</div>
 							<input type="submit" value="Submit">
 						</form>

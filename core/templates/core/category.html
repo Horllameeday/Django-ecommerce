@@ -8,10 +8,12 @@
         <div class="container">
             <ul class="w3_short">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{% url 'core:index' %}">Home</a>
                     <i>|</i>
                 </li>
-                <li>{{ category.title }}</li>
+                <li>
+                <a href="{% url 'core:category' category.slug %}">{{category.title}}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -30,12 +32,11 @@
         </h3>
         <!-- //tittle heading -->
         <!-- product -->
-        <div class="agileinfo-ads-display col-md-9 w3l-rightpro">
+        <div class="agileinfo-ads-display col-md-12 w3l-rightpro">
             <div class="wrapper">
                 <!-- first section -->
                 <div class="product-sec1">
                     {% for item in items %}
-					
                     <div class="col-xs-4 product-men">
                         <div class="men-pro-item simpleCart_shelfItem">
                             <div class="men-thumb-item">
