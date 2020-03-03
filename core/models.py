@@ -16,7 +16,7 @@ class Payment(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
-    slug = models.SlugField(null=True, unique=True, max_length=30)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.title
@@ -24,6 +24,7 @@ class Category(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=100)
     image = models.FileField()
+    quantity = models.IntegerField(default=1)
     description = models.TextField(blank=True, null=True)
     price = models.FloatField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
@@ -81,8 +82,7 @@ class Address(models.Model):
     phone_number = models.CharField(max_length=15)
 
     def __str__(self):
-        return self.user.username
-
+        return self.address
 
 class Contact(models.Model):
     name = models.CharField(max_length=30)

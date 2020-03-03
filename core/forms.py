@@ -1,11 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Contact
 
 PAYMENT_CHOICES = (
     ('C', 'Cash on Delivery'),
-    ('P', 'Pickup'),
-    ('PN', 'Pay Now')
+    ('P', 'Pay Now')
 )
 
 class OptionForm(forms.Form):
@@ -21,16 +19,3 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password']
-
-class ContactForm(forms.ModelForm):
-    class Meta:
-        model = Contact
-        fields = ['name', 'subject', 'email', 'message',]
-        widgets = {'name':forms.TextInput(attrs={'placeholder':'Name'}), 
-                    'subject':forms.TextInput(attrs={'placeholder':'Subject'}), 
-                    'email':forms.EmailInput(attrs={'placeholder':'Email Address'}), 
-                    'message':forms.Textarea(attrs={'placeholder':'Enter Your Message'})
-                    }
-        # widgets = {
-        #     'name': forms.TextInput(attrs={'placeholder': "Enter Your Name"})
-        # }

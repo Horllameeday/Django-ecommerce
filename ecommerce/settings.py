@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core.apps.CoreConfig'
+    #'paystack',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'core:index'
+
+PAYSTACK_PUBLIC_KEY='pk_test_01b5becaa9f892133824a341e614d1e0b087a5ed',
+PAYSTACK_SECRET_KEY='sk_test_7a1e168fcdf49e99087b17a0495db1eb2313b4d0'

@@ -1,0 +1,8 @@
+{% load paystack %}
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+{% paystack_button amount=2000 email="a@example.com" %}
+
+{% endblock %}

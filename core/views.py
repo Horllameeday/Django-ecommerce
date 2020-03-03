@@ -53,23 +53,7 @@ def about(request):
     return render(request, 'core/about.html')
 
 def contact(request):
-    form = ContactForm()
-
-    if request.method == "POST":
-        form = ContactForm(data=request.POST)
-		
-        if form.is_valid():
-            new_message = form.save(commit=False)
-            new_message.save()
-            messages.success(request, 'Your Message have been successfully forwarded to Us. We will make sure to reply you as soon as possible. Thanks.')
-            return redirect("core:contact")
-
-    else:
-        form = ContactForm()
-    
-    context = {'form':form}
-
-    return render(request, 'core/contact.html', context)
+    return render(request, 'core/contact.html')
 
 class OptionView(View):
     def get(self, *args, **kwargs):
@@ -86,8 +70,6 @@ class OptionView(View):
                 if payment_option == "C":
                     return redirect('core:cash-checkout')
                 elif payment_option == 'P':
-                    return redirect('core:payment', payment_option='Pickup')
-                elif payment_option == 'PN':
                     return redirect('core:payment', payment_option='Pay Now')
                 else:
                     messages.warning(self.request, "Invalid payment option selected" )
@@ -101,7 +83,7 @@ class CashCheckoutView(View):
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
-            form = CashCheckoutForm()
+            form = CashCheckoutForm() 
             context = {
                 'form': form,
                 'order': order,
@@ -123,11 +105,13 @@ class CashCheckoutView(View):
                     address=address,
                     phone_number=phone_number
                 )
+                address.save()
                 order_items = order.items.all()
                 order_items.update(ordered=True)
                 for item in order_items:
                     item.save()
 
+                order.address = address
                 order.ordered = True
                 order.ref_code = create_ref_code()
                 order.save()
@@ -292,18 +276,27 @@ def add_to_cart(request, slug):
     if order_qs.exists():
         order = order_qs[0]
         if order.items.filter(item__slug=item.slug).exists():
-            order_item.quantity += 1
-            order_item.save()
-            messages.info(request, "This item quantity was updated")
+            if order_item.quantity <= item.quantity:
+                order_item.quantity += 1
+                item.quantity -= 1
+                item.save()
+                order_item.save()
+                messages.info(request, "This item quantity was updated")
+            else:
+                messages.info(request, "This item is out of stock")
             return redirect("core:cart")
         else:
             order.items.add(order_item)
-            messages.success(request, "This item was added to your cart")
+            item.quantity -= 1
+            item.save()
+            messages.info(request, "This item was added to your cart")
             return redirect("core:cart")
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
+        item.quantity -= 1
+        item.save()
         messages.info(request, "This item was added to your cart")
         return redirect("core:cart")
     return redirect("core:cart")
@@ -316,8 +309,10 @@ def remove_from_cart(request, slug):
         order = order_qs[0]
         if order.items.filter(item__slug=item.slug).exists():
             order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
+            item.quantity += order_item.quantity
             order.items.remove(order_item)
             order_item.delete()
+            item.save()
             order.save()
             messages.info(request, "This item was removed from your cart")
             return redirect("core:cart")
@@ -338,14 +333,17 @@ def remove_single_item_from_cart(request, slug):
             order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
             if order_item.quantity > 1:
                 order_item.quantity -= 1
+                item.quantity += 1
+                item.save()
                 order_item.save()
             else:
+                item.quantity += order_item.quantity
                 order.items.remove(order_item)
                 order_item.delete()
+                item.save()
                 order.save()
             messages.info(request, "This item was quantity was updated")
             return redirect("core:cart")
-            # return redirect("core:detail", slug=slug)
         else:
             messages.info(request, "This item was not in your cart")
             return redirect("core:detail", slug=slug)
