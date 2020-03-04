@@ -53,7 +53,22 @@ def about(request):
     return render(request, 'core/about.html')
 
 def contact(request):
-    return render(request, 'core/contact.html')
+    form = ContactForm()
+
+    if request.method == "POST":
+        form = ContactForm(data=request.POST)
+		
+        if form.is_valid():
+            new_message = form.save(commit=False)
+            new_message.save()
+            messages.success(request, 'Your Message have been successfully forwarded to Us. We will make sure to reply you as soon as possible. Thanks.')
+            return redirect("core:contact")
+
+    else:
+        form = ContactForm()
+    
+    context = {'form':form}
+    return render(request, 'core/contact.html', context)
 
 class OptionView(View):
     def get(self, *args, **kwargs):

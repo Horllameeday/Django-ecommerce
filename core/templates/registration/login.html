@@ -1,20 +1,23 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
     <div class="privacy">
         <div class="container">
-            <h3 class="tittle-w3l">Login
-                <span class="heading-style">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                </span>
-            </h3>
-            {{ form.as_p }} 
+                <h3 class="tittle-w3l">Login
+                    <span class="heading-style">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </span>
+                </h3>
+            <div class="contact-form wthree">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }} 
+                        <button class='login' type='submit'>Login</button>
+                    </form>
+                </div>
+            </div>              
         </div>
     </div>
-    <button class='btn btn-primary' type='submit'>Login</button>
-</form>
 {% endblock %}
