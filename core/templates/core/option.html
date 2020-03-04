@@ -1,28 +1,33 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <div class="privacy">
-        <div class="container">
-            <h3 class="tittle-w3l">Pick an option
-                <span class="heading-style">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                </span>
-            </h3>
-        </div>
-        <div>
-            Payment option:
-            {% for key, value in form.fields.payment_option.choices %}
-            <div>
-                <input id="{{ value }}" name="payment_option" value="{{ key }}" type="radio" required>
-                <label for="{{ value }}">{{ value }}</label>
+<div class="privacy">
+    <div class="container">
+        <h3 class="tittle-w3l">Pick an option
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+    </div>
+    <div class="container option">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    <h4> Payment options: </h4>
+                    {% for key, value in form.fields.payment_option.choices %}
+                    <div>
+                        <input id="{{ value }}" name="payment_option" value="{{ key }}" type="radio" required>
+                        <label for="{{ value }}">{{ value }}</label>
+                    </div>
+                    {% endfor %}
+                    <button class='option-btn' type='submit'>Proceed</button>
+                </form>
             </div>
-            {% endfor %}
         </div>
     </div>
-    <button class='btn btn-primary' type='submit'>Proceed</button>
-</form>
+</div>
+
 {% endblock %}

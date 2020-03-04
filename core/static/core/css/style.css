@@ -45,7 +45,60 @@ ul{
 	padding:0;
 }
 label{
+    color: #ff9845;
 	margin:0;
+}
+
+.contact-form button.login, .contact-form button.signup, .contact-form button.checkout{
+    background: #FF5722;
+    outline: none;
+    padding: 10px 42px;
+    border: none;
+    color: white;
+    margin: 20px 0;
+    transition: 0.5s all;
+    border: 2px solid #FF5722;
+}
+
+.contact-form button.login:hover, .contact-form button.signup:hover, .contact-form button.checkout:hover{
+    border: 2px solid #FF5722;
+    color: #FF5722;
+    background: none;
+}
+
+input[type='text'], input[type='password'], input[type='email']{
+    display: block ;
+    width: 100%;
+    padding: 8px 20px;
+    margin: 10px auto;
+    background: none;
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+.option input[type="radio"]{
+    margin: 20px 0;
+}
+
+.option .option-btn{
+    background: #FF5722;
+    outline: none;
+    padding: 10px 42px;
+    border: none;
+    color: white;
+    margin: 10px 0;
+    transition: 0.5s all;
+    border: 2px solid #FF5722;
+}
+
+.option .option-btn:hover{
+    border: 2px solid #FF5722;
+    color: #FF5722;
+    background: none;
+}
+
+.cart-container{
+    margin-top: 50px;
 }
 /* top-header */
 .header-most-top p {
@@ -88,73 +141,8 @@ label{
     margin: 0 auto;
     width: 90%;
 }
-/*-- shop locator --*/
-.list_of_cities {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid rgba(47, 47, 47, 0.44);
-    color: #4d4d4d;
-    font-size: 14px;
-    font-family: 'Open Sans', sans-serif;
-    letter-spacing: 1px;
-}
-/*-- //shop locator --*/
-/*-- //Header Lists --*/
-/*-- search --*/
-.agileits_search {
-    margin-top: 16px;
-    float: left;
-    width: 80%;
-}
-.agileits_search input[type="search"]{
-    outline: none;
-    border: 1px solid #191e21;
-    background: #fff;
-    border-right-color: transparent;
-    color: #191e21;
-    padding: 10px;
-    font-size: 14px;
-	float: left;
-	width:90%;
-	letter-spacing: 1px;
-}
-.agileits_search .btn-default {
-    border: none;
-    width:60px;
-    height: 42px;
-    outline: none;
-    box-shadow: none;
-    background: #1accfd;
-    padding: 0;
-    border-radius: inherit;
-    -webkit-appearance: none;
-    -webkit-transition: .5s all;
-    -moz-transition: .5s all;
-    transition: .5s all;
-}
-.agileits_search .btn-default:hover {
-	background:#FF5722;
-}
-.agileits_search span {
-    color: #fff;
-}
-#agileinfo_search {
-    padding: 9.5px 2px;
-}
-.agileits-navi_search {
-	float: left;
-	width: 23%;
-}
-#agileinfo-nav_search {
-    outline: none;
-    border: none;
-    color: #000;
-    font-size: 14px;
-    background: #f3f3f3;
-	padding:15px 10px;
-	width:100%;
-	letter-spacing: 1px;
-}
+
+
 /*-- //search --*/
 /*-- logo --*/
 .logo_agile {
@@ -933,7 +921,7 @@ input.checked {
 }
 h3.heading-tittle {
     text-align: center;
-    color: #000;
+    color: #FF5722;
     font-size: 35px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -1007,7 +995,7 @@ h3.w3l-nut-middle {
 }
 /*-- tittle heading --*/
 h3.tittle-w3l {
-    color: #000;
+    color: #FF5722;
     font-size: 3em;
     text-align: center;
     margin-bottom: 50px;
@@ -1990,6 +1978,7 @@ h3.w3-head {
     margin: 16px 0 0;
     letter-spacing: 1px;
 }
+
 ul.faq {
     padding-left: 1.5em;
 }
